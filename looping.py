@@ -9,15 +9,3 @@ for line in range(1,10):
     for number in range(line):
         print(line, end = '')
     print()
-
-
-
-for line in range (1,10):
-    for space in range(9-line):
-        print(" ", end = '')
-    for number in range(line):
-        print(line, end = '')
-        print()
-    # for space in range()
-    for space in range(line):
-        print(" ", end = '')
