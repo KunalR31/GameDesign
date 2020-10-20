@@ -4,7 +4,6 @@ print(len(strVar))
 print(strVar.replace('Extract','EXTRACT'))
 print(strVar.replace("setup",'SETUP'))
 print(strVar.count("Drivers"))
-print(strVar.find(\n))
 #Finding the 1
 print(strVar.find('4'))
 print(strVar.find('1.'))
