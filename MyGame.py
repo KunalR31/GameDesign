@@ -64,5 +64,3 @@ if start == "yes":
     elif set == '2':
         set = verbs
         game()
-if start == "no":
-    break
