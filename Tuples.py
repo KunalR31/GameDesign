@@ -17,9 +17,5 @@ repeat = tuple.count('d')
 print(repeat)
 #10
 print(type(tuple[8]))
-#11
-# list=['yes','1','hi']
-# tuplelist=tuple(list)
-# print(type(list))
-# print(type(tuplelist))
+#15
 print(len(tuple))
