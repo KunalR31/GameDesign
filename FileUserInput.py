@@ -8,6 +8,3 @@ with open (filename, "w") as f:
   f.write (input ())
   print('Whatever you type now will add to the last thing you typed')
   f.write(input ())
-contents=open(filename)
-# filename.read()
-print(contents)
