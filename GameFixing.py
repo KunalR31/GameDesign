@@ -1,0 +1,152 @@
+import pygame
+import math
+import random
+
+# setup display
+pygame.init()
+WIDTH, HEIGHT = 800, 500
+win = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Hangman Game!")
+
+# setup  button variables
+RADIUS = 20
+GAP = 15
+letters = []
+startx = round((WIDTH - (RADIUS * 2 + GAP) * 13) / 2)
+starty = 400
+A = 65
+for i in range(26):
+    x = startx + GAP * 2 + ((RADIUS * 2 + GAP) * (i % 13))
+    y = starty + ((i // 13) * (GAP + RADIUS * 2))
+    letters.append([x, y, chr(A + i), True])
+
+# set up fonts
+LETTER_FONT = pygame.font.SysFont('comicsans', 40)
+WORD_FONT = pygame.font.SysFont('comicsans', 60)
+TITLE_FONT = pygame.font.SysFont('comicsans', 70)
+
+# load images.
+images = []
+for i in range(7):
+    image = pygame.image.load("C:\\Users\\raik24\\github\\GameDesign\\Hangman.py\\ImagesHM\\hangman" + str(i) + ".png")
+    images.append(image)
+
+# game variables
+hangman_status = 0
+words = ["IDE", "REPLIT", "PYTHON", "PYGAME", "LOAD",'JAVA','PHP','JAVASCRIPT','COMPUTER','GEEKS','KEYBOARD','LAPTOP','HEADPHONES','HARDWARE','SOFTWARE'] # make it longer
+word = random.choice(words)
+guessed = []
+
+# colors
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+
+
+def draw():
+    win.fill(WHITE)
+
+    # draw title
+    text = TITLE_FONT.render("HANGMAN", 1, BLACK)
+    win.blit(text, (WIDTH/2 - text.get_width()/2, 20)) # Notice centering
+
+    # draw word
+    display_word = ""
+    for letter in word:
+        if letter in guessed:
+            display_word += letter + " "
+        else:
+            display_word += "_ "
+    text = WORD_FONT.render(display_word, 1, BLACK)
+    win.blit(text, (400, 200))
+
+    # draw buttons
+    for letter in letters:
+        x, y, ltr, visible = letter
+        if visible:
+            pygame.draw.circle(win, BLACK, (x, y), RADIUS, 3)
+            text = LETTER_FONT.render(ltr, 1, BLACK)
+            win.blit(text, (x - text.get_width()/2, y - text.get_height()/2))
+
+    win.blit(images[hangman_status], (150, 100))
+    pygame.display.update()
+
+
+def display_message(message):
+    pygame.time.delay(1000)
+    win.fill(WHITE)
+    text = WORD_FONT.render(message, 1, BLACK)
+    win.blit(text, (WIDTH/2 - text.get_width()/2, HEIGHT/2 - text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delay(3000)
+
+def main():
+    global hangman_status
+
+    FPS = 60
+    clock = pygame.time.Clock()
+    run = True
+
+    while run:
+        clock.tick(FPS)
+    for event in pygame.event.get():
+        if event.type == pygame.quit:
+            run = False
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        m_x, m_y = pygame.mouse.get_pos()
+        for letter in letters:
+                x, y, ltr, visible = letter
+        if visible:
+                dis = math.sqrt((x - m_x)**2 + (y - m_y)**2)
+                if dis < RADIUS:
+                    letter[3] = False
+                    guessed.append(ltr)
+                    if ltr not in word:
+                        hangman_status += 1
+
+        draw()
+
+        won = True
+        for letter in word:
+            if letter not in guessed:
+                won = False
+                break
+
+        if won:
+            display_message("You WON!")
+
+
+        if hangman_status == 6:
+            display_message("You LOST!")
+            
+
+while True:
+
+    main()
+# def menu():
+#     print('***********************************')
+#     print('*      Hangman Guessing Game      *')
+#     print('*                                 *')
+#     print('*    What mode do you to play     *')
+#     print('*           1. Easy               *')
+#     print('*           2.Medium              *')
+#     print('*           3.Hard                *')
+#     print('*         How to play:            *')
+#     print('*You have to click the correct    *')
+#     print('*And dont let the man fully appear*')
+#     print('***********************************')
+#
+#
+# start=input('Would you like to play (yes/no)')
+# if start == "yes":
+#     score = 0
+#     print('')
+#     menu()
+#     set=input('Which mode do you want to play (1/2)?')
+#     if set == '1':
+#         set=numbers
+#         game()
+#     elif set == '2':
+#         set = verbs
+#         game()
+
+pygame.quit()
