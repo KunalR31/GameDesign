@@ -117,36 +117,10 @@ def main():
 
         if hangman_status == 6:
             display_message("You LOST!")
-            
+
 
 while True:
 
     main()
-# def menu():
-#     print('***********************************')
-#     print('*      Hangman Guessing Game      *')
-#     print('*                                 *')
-#     print('*    What mode do you to play     *')
-#     print('*           1. Easy               *')
-#     print('*           2.Medium              *')
-#     print('*           3.Hard                *')
-#     print('*         How to play:            *')
-#     print('*You have to click the correct    *')
-#     print('*And dont let the man fully appear*')
-#     print('***********************************')
-#
-#
-# start=input('Would you like to play (yes/no)')
-# if start == "yes":
-#     score = 0
-#     print('')
-#     menu()
-#     set=input('Which mode do you want to play (1/2)?')
-#     if set == '1':
-#         set=numbers
-#         game()
-#     elif set == '2':
-#         set = verbs
-#         game()
 
 pygame.quit()
