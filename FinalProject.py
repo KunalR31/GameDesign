@@ -1,281 +1,278 @@
-# #Kunal Rai
-# import pygame
-# import sys
-#
-#
-# # initializing the constructor
-# pygame.init()
-#
-# # screen resolution
-# res = (900,900)
-#
-# # opens up a window
-# screen = pygame.display.set_mode(res)
-#
-# # white color
-# color = (255,255,255)
-#
-# # light shade of the button
-# color_light = (170,170,170)
-#
-# # dark shade of the button
-# color_dark = (100,100,100)
-#
-# # stores the width of the
-# # screen into a variable
-# width = screen.get_width()
-#
-# # stores the height of the
-# # screen into a variable
-# height = screen.get_height()
-#
-# # defining a font
-# smallfont = pygame.font.SysFont('Corbel',35)
-#
-# # rendering a text written in
-# # this font
-# text = smallfont.render('quit' , True , color)
-#
-# while True:
-#
-#     for ev in pygame.event.get():
-#
-#         if ev.type == pygame.QUIT:
-#             pygame.quit()
-#
-#         #checks if a mouse is clicked
-#         if ev.type == pygame.MOUSEBUTTONDOWN:
-#
-#             #if the mouse is clicked on the
-#             # button the game is terminated
-#             if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-#                 pygame.quit()
-# text2 = smallfont.render('Instructions' , True, color_light)
-#
-# while True:
-#     for ev in pygame.event.get():
-#
-#         if ev.type == pygame.MOUSEBUTTONDOWN:
-#             if width/2 <= mouse[0] <= width/2+160 and height/2 <= mouse[1] <= height/2+80:
-#                 Print('welcome')
-#
-#
-#
-#     # fills the screen with a color
-#     screen.fill((60,25,60))
-#
-#     # stores the (x,y) coordinates into
-#     # the variable as a tuple
-#     mouse = pygame.mouse.get_pos()
-#
-#     # if mouse is hovered on a button it
-#     # changes to lighter shade
-#     if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-#         pygame.draw.rect(screen,color_light,[width/2,height/2,140,40])
-#
-#     else:
-#         pygame.draw.rect(screen,color_dark,[width/2,height/2,140,40])
-#
-#
-#     # superimposing the text onto our button
-#     screen.blit(text , (width/2+50,height/2))
-#
-#     # updates the frames of the game
-#     pygame.display.update()
-# import pygame
-# import sys
-# global win
-# pygame.init()
-# pygame.window.blit(bg, (0,0))
-#
-# def menu():
-#     button1 = pygame.rect(100,100,100,100)
-#     button2 = pygame.rect(200,200,200,200)
-#     button3 = pygame.rect(300,300,300,300)
-#     button4 = pygame.rect(400,400,400,400)
-#     pygame.draw.rect(win,(0,102,0), button1)
-#     pygame.draw.rect(win,(0,102,0), button2)
-#     pygame.draw.rect(win,(0,102,0), button3)
-#     pygame.draw.rect(win,(0,102,0), button4)
-#     text= TITLE_FONT.render("MAN", 1, (0,0,0))
-#     win.blit(text, (WIDTH/2 - text.get_width()/2, 20))
-#     text2= TITLE_FONT2.render("PLAY", 1, (0,0,0))
-#     win.blit(text2, (WIDTH/2 - text.get_width()/4, 75))
-#
-#     text3= TITLE_FONT.render("INSTRUCTIONS", 1, (0,0,0))
-#     win.blit(text3, (WIDTH/2 - text.get_width()/2, 480))
-#
-#     text4= TITLE_FONT.render("EASY", 1, (0,0,0))
-#     win.blit(text4, (160,555))
-#
-#     text5= TITLE_FONT.render("MEDIUM", 1, (0,0,0))
-#     win.blit(text5, (140,630))
-#
-#     text6= TITLE_FONT.render("HARD", 1, (0,0,0))
-#     win.blit(text6, (160, 705))
+#Kunal Rai
+#The game I decided to make was a Space Invaders type game. The first thing I did in the code
+#was load all the images for the lasers and the ships. The second part I did was start coding
+#the first parts of my game. After I coded the smaller parts I went on to code the main game. Once I coded the main game
+#I coded a little more after then made the code for the menu.
 import pygame
+import os
 import time
 import random
+pygame.font.init()
 
-pygame.init()
+WIDTH, HEIGHT = 1000, 1000
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Space Shooter Tutorial")
 
-display_width = 800
-display_height = 800
+# This is where I load all the images
+RED_SPACE_SHIP = pygame.image.load(os.path.join("Final Project Images", "pixel_ship_red_small.png"))
+GREEN_SPACE_SHIP = pygame.image.load(os.path.join("Final Project Images", "pixel_ship_green_small.png"))
+BLUE_SPACE_SHIP = pygame.image.load(os.path.join("Final Project Images", "pixel_ship_blue_small.png"))
 
-black = (0,0,0)
-white = (255,255,255)
-red = (255,0,0)
+# This is the players ship
+YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("Final Project Images", "pixel_ship_yellow.png"))
 
-# block_color = (53,115,255)
-#
-# car_width = 73
+# These are the lasers that the enemies shoot
+RED_LASER = pygame.image.load(os.path.join("Final Project Images", "pixel_laser_red.png"))
+GREEN_LASER = pygame.image.load(os.path.join("Final Project Images", "pixel_laser_green.png"))
+BLUE_LASER = pygame.image.load(os.path.join("Final Project Images", "pixel_laser_blue.png"))
+YELLOW_LASER = pygame.image.load(os.path.join("Final Project Images", "pixel_laser_yellow.png"))
 
-gameDisplay = pygame.display.set_mode((display_width,display_height))
-pygame.display.set_caption('Fire Man')
-clock = pygame.time.Clock()
-#
-# carImg = pygame.image.load('background.png')
-#
-#
-# def things_dodged(count):
-#     font = pygame.font.SysFont(None, 25)
-#     text = font.render("Dodged: "+str(count), True, black)
-#     gameDisplay.blit(text,(0,0))
-#
-# def things(thingx, thingy, thingw, thingh, color):
-#     pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
-#
-# def car(x,y):
-#     gameDisplay.blit(carImg,(x,y))
+# This is the background image
+BG = pygame.transform.scale(pygame.image.load(os.path.join("Final Project Images", "background-black.png")), (WIDTH, HEIGHT))
+#This is the laser's code
+class Laser:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
+        self.mask = pygame.mask.from_surface(self.img)
 
-def text_objects(text, font):
-    textSurface = font.render(text, True, black)
-    return textSurface, textSurface.get_rect()
-#
-# def message_display(text):
-#     largeText = pygame.font.Font('freesansbold.ttf',115)
-#     TextSurf, TextRect = text_objects(text, largeText)
-#     TextRect.center = ((display_width/2),(display_height/2))
-#     gameDisplay.blit(TextSurf, TextRect)
-#
-#     pygame.display.update()
-#
-#     time.sleep(2)
-#
-#     game_loop()
-#
+    def draw(self, window):
+        window.blit(self.img, (self.x, self.y))
 
+    def move(self, vel):
+        self.y += vel
 
-# def crash():
-#     message_display('You Crashed')
+    def off_screen(self, height):
+        return not(self.y <= height and self.y >= 0)
 
-def button(msg,x,y,w,h,ic,ac,action=None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    print(click)
-    if x+w > mouse[0] > x and y+h > mouse[1] > y:
-        pygame.draw.rect(gameDisplay, ac,(x,y,w,h))
+    def collision(self, obj):
+        return collide(self, obj)
 
-        if click[0] == 1 and action != None:
-            action()
-    else:
-        pygame.draw.rect(gameDisplay, ic,(x,y,w,h))
+#This is code for a ship
+class Ship:
+    COOLDOWN = 30
 
-    smallText = pygame.font.SysFont("comicsansms",20)
-    textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ( (x+(w/2)), (y+(h/2)) )
-    gameDisplay.blit(textSurf, textRect)
+    def __init__(self, x, y, health=100):
+        self.x = x
+        self.y = y
+        self.health = health
+        self.ship_img = None
+        self.laser_img = None
+        self.lasers = []
+        self.cool_down_counter = 0
 
-def game_intro():
+    def draw(self, window):
+        window.blit(self.ship_img, (self.x, self.y))
+        for laser in self.lasers:
+            laser.draw(window)
 
-    intro = True
+    def move_lasers(self, vel, obj):
+        self.cooldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(HEIGHT):
+                self.lasers.remove(laser)
+            elif laser.collision(obj):
+                obj.health -= 10
+                self.lasers.remove(laser)
 
-    while intro:
-        for event in pygame.event.get():
-            #print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+    def cooldown(self):
+        if self.cool_down_counter >= self.COOLDOWN:
+            self.cool_down_counter = 0
+        elif self.cool_down_counter > 0:
+            self.cool_down_counter += 1
 
-        gameDisplay.fill(white)
-        largeText = pygame.font.SysFont("comicsansms",115)
-        TextSurf, TextRect = text_objects("Fire Man", largeText)
-        TextRect.center = ((display_width/2),(display_height/2))
-        gameDisplay.blit(TextSurf, TextRect)
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            laser = Laser(self.x, self.y, self.laser_img)
+            self.lasers.append(laser)
+            self.cool_down_counter = 1
 
-        button("GO!",150,450,100,50,(0,200,0),(0,255,0),game_loop)
-        button("Quit",550,450,100,50,(200,0,0),(255,0,0),pygame.quit())
+    def get_width(self):
+        return self.ship_img.get_width()
+
+    def get_height(self):
+        return self.ship_img.get_height()
+
+#This is code for the players ship
+class Player(Ship):
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.ship_img = YELLOW_SPACE_SHIP
+        self.laser_img = YELLOW_LASER
+        self.mask = pygame.mask.from_surface(self.ship_img)
+        self.max_health = health
+
+    def move_lasers(self, vel, objs):
+        self.cooldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(HEIGHT):
+                self.lasers.remove(laser)
+            else:
+                for obj in objs:
+                    if laser.collision(obj):
+                        objs.remove(obj)
+                        if laser in self.lasers:
+                            self.lasers.remove(laser)
+
+    def draw(self, window):
+        super().draw(window)
+        self.healthbar(window)
+
+    def healthbar(self, window):
+        pygame.draw.rect(window, (255,0,0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
+        pygame.draw.rect(window, (0,255,0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health/self.max_health), 10))
+
+#This is code for the ships that are attacking the players ship
+class Enemy(Ship):
+    COLOR_MAP = {
+                "red": (RED_SPACE_SHIP, RED_LASER),
+                "green": (GREEN_SPACE_SHIP, GREEN_LASER),
+                "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
+                }
+
+    def __init__(self, x, y, color, health=100):
+        super().__init__(x, y, health)
+        self.ship_img, self.laser_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.ship_img)
+
+    def move(self, vel):
+        self.y += vel
+
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            laser = Laser(self.x-20, self.y, self.laser_img)
+            self.lasers.append(laser)
+            self.cool_down_counter = 1
+
+#This is code to detect collisions
+def collide(obj1, obj2):
+    offset_x = obj2.x - obj1.x
+    offset_y = obj2.y - obj1.y
+    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
+#This is the code for the main game
+def main():
+    run = True
+    FPS = 60
+    level = 0
+    lives = 5
+    main_font = pygame.font.SysFont("comicsans", 50)
+    lost_font = pygame.font.SysFont("comicsans", 60)
+
+    enemies = []
+    wave_length = 5
+    enemy_vel = 1
+
+    player_vel = 5
+    laser_vel = 5
+
+    player = Player(300, 630)
+
+    clock = pygame.time.Clock()
+
+    lost = False
+    lost_count = 0
+
+    def redraw_window():
+        WIN.blit(BG, (0,0))
+        lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
+        level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
+
+        WIN.blit(lives_label, (10, 10))
+        WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+
+        for enemy in enemies:
+            enemy.draw(WIN)
+
+        player.draw(WIN)
+
+        if lost:
+            lost_label = lost_font.render("You Lost!!", 1, (255,255,255))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         pygame.display.update()
-        clock.tick(15)
 
+    while run:
+        clock.tick(FPS)
+        redraw_window()
 
+        if lives <= 0 or player.health <= 0:
+            lost = True
+            lost_count += 1
 
-def game_loop():
-    x = (display_width * 0.45)
-    y = (display_height * 0.8)
+        if lost:
+            if lost_count > FPS * 3:
+                run = False
+            else:
+                continue
 
-    x_change = 0
-
-    thing_startx = random.randrange(0, display_width)
-    thing_starty = -600
-    thing_speed = 4
-    thing_width = 100
-    thing_height = 100
-
-    thingCount = 1
-
-    dodged = 0
-
-    gameExit = False
-
-    while not gameExit:
+        if len(enemies) == 0:
+            level += 1
+            wave_length += 5
+            for i in range(wave_length):
+                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
+                enemies.append(enemy)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
                 quit()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    x_change = -5
-                if event.key == pygame.K_RIGHT:
-                    x_change = 5
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] and player.x - player_vel > 0: # left
+            player.x -= player_vel
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # right
+            player.x += player_vel
+        if keys[pygame.K_w] and player.y - player_vel > 0: # up
+            player.y -= player_vel
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # down
+            player.y += player_vel
+        if keys[pygame.K_SPACE]:
+            player.shoot()
 
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                    x_change = 0
+        for enemy in enemies[:]:
+            enemy.move(enemy_vel)
+            enemy.move_lasers(laser_vel, player)
 
-        x += x_change
-        gameDisplay.fill(white)
+            if random.randrange(0, 2*60) == 1:
+                enemy.shoot()
 
-        things(thing_startx, thing_starty, thing_width, thing_height, block_color)
+            if collide(enemy, player):
+                player.health -= 10
+                enemies.remove(enemy)
+            elif enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
+                enemies.remove(enemy)
 
+        player.move_lasers(-laser_vel, enemies)
+# class button():
+#     def __init__(self, color, x,y,width,height, text=''):
+#         self.color = (color)
+#         self.x = x
+#         self.y = y
+#         self.width = width
+#         self.height = height
+#         self.text = text
+#
+#     def draw(self,win,outline=None):
+#         #Call this method to draw the button on the screen
+#         if outline:
+#             pygame.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
+#
+#         pygame.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
+#
+#         if self.text != '':
+#             font = pygame.font.SysFont('comicsans', 60)
+#             text = font.render(self.text, 1, (0,0,0))
+#             win.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
+#
+#     def isOver(self, pos):
+#         #Pos is the mouse position or a tuple of (x,y) coordinates
+#         if pos[0] > self.x and pos[0] < self.x + self.width:
+#             if pos[1] > self.y and pos[1] < self.y + self.height:
+#                 return True
+#             return false
 
-
-        thing_starty += thing_speed
-        car(x,y)
-        things_dodged(dodged)
-
-        if x > display_width - car_width or x < 0:
-            crash()
-
-        if thing_starty > display_height:
-            thing_starty = 0 - thing_height
-            thing_startx = random.randrange(0,display_width)
-            dodged += 1
-            thing_speed += 1
-            thing_width += (dodged * 1.2)
-
-        if y < thing_starty+thing_height:
-            print('y crossover')
-
-            if x > thing_startx and x < thing_startx + thing_width or x+car_width > thing_startx and x + car_width < thing_startx+thing_width:
-                print('x crossover')
-                crash()
-
-        pygame.display.update()
-        clock.tick(60)
-
-game_intro()
-pygame.quit()
+main()
