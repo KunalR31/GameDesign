@@ -249,6 +249,7 @@ def main():
                 enemies.remove(enemy)
 
         player.move_lasers(-laser_vel, enemies)
+#This is the code for the instructions of the menu
 def instructions():
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
@@ -275,7 +276,7 @@ def instructions():
     img1 = font1.render('WELCOME TO SPACE INVADERS.', True, BLUE)
     img3 = font3.render('THE GOAL OF THE GAME IS TO DESTROY ALL THE ENEMY SHIPS', True, BLUE)
     font2 = pygame.font.SysFont('didot.ttc', 30)
-    img2 = font2.render('W = UP A = LEFT S = DOWN D = RIGHT SPACEBAR = SHOOT', True, BLACK)
+    img2 = font2.render('W = UP | A = LEFT | S = DOWN | D = RIGHT | SPACEBAR = SHOOT', True, BLACK)
     img4 = font2.render('PRESS THE X IN THE TOP RIGHT TO RETURN TO THE MENU', True, BLACK)
 
     fonts = pygame.font.get_fonts()
@@ -296,6 +297,7 @@ def instructions():
         screen.blit(img3, (80, 100))
         screen.blit(img4, (80, 140))
         pygame.display.update()
+#This is the menu code. I used pygame menu a pygame module that helps create menus
 menu = pygame_menu.Menu(800,800, 'Space Invaders' ,theme=pygame_menu.themes.THEME_BLUE)
 menu.add_button('Play', main)
 menu.add_button('Instructions', instructions)
