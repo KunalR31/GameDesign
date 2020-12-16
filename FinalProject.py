@@ -7,11 +7,13 @@ import pygame
 import os
 import time
 import random
+from pygame.locals import *
+import pygame_menu
 pygame.font.init()
-
-WIDTH, HEIGHT = 1000, 1000
+pygame.init()
+WIDTH, HEIGHT = 800, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Shooter Tutorial")
+pygame.display.set_caption("Space Invaders")
 
 # This is where I load all the images
 RED_SPACE_SHIP = pygame.image.load(os.path.join("Final Project Images", "pixel_ship_red_small.png"))
@@ -247,32 +249,56 @@ def main():
                 enemies.remove(enemy)
 
         player.move_lasers(-laser_vel, enemies)
-# class button():
-#     def __init__(self, color, x,y,width,height, text=''):
-#         self.color = (color)
-#         self.x = x
-#         self.y = y
-#         self.width = width
-#         self.height = height
-#         self.text = text
-#
-#     def draw(self,win,outline=None):
-#         #Call this method to draw the button on the screen
-#         if outline:
-#             pygame.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
-#
-#         pygame.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
-#
-#         if self.text != '':
-#             font = pygame.font.SysFont('comicsans', 60)
-#             text = font.render(self.text, 1, (0,0,0))
-#             win.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
-#
-#     def isOver(self, pos):
-#         #Pos is the mouse position or a tuple of (x,y) coordinates
-#         if pos[0] > self.x and pos[0] < self.x + self.width:
-#             if pos[1] > self.y and pos[1] < self.y + self.height:
-#                 return True
-#             return false
+def instructions():
+    BLACK = (0, 0, 0)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    GRAY = (200, 200, 200)
 
-main()
+    pygame.init()
+    screen = pygame.display.set_mode((800, 800))
+
+    sysfont = pygame.font.get_default_font()
+    print('system font :', sysfont)
+
+    t0 = time.time()
+    font = pygame.font.SysFont(None, 48)
+    print('time needed for Font creation :', time.time()-t0)
+
+    img = font.render(sysfont, True, RED)
+    # rect = img.get_rect()
+    # pygame.draw.rect(img, BLUE, rect, 1)
+
+    font1 = pygame.font.SysFont('freesansbold.ttf', 50)
+    font3 = pygame.font.SysFont('freesansbold.ttf', 30)
+    img1 = font1.render('WELCOME TO SPACE INVADERS.', True, BLUE)
+    img3 = font3.render('THE GOAL OF THE GAME IS TO DESTROY ALL THE ENEMY SHIPS', True, BLUE)
+    font2 = pygame.font.SysFont('didot.ttc', 30)
+    img2 = font2.render('W = UP A = LEFT S = DOWN D = RIGHT SPACEBAR = SHOOT', True, BLACK)
+    img4 = font2.render('PRESS THE X IN THE TOP RIGHT TO RETURN TO THE MENU', True, BLACK)
+
+    fonts = pygame.font.get_fonts()
+    print(len(fonts))
+    for i in range(7):
+        print(fonts[i])
+
+    running = True
+    background = GRAY
+    while running:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+
+        screen.fill(background)
+        screen.blit(img1, (125,50))
+        screen.blit(img2, (80, 120))
+        screen.blit(img3, (80, 100))
+        screen.blit(img4, (80, 140))
+        pygame.display.update()
+menu = pygame_menu.Menu(800,800, 'Space Invaders' ,theme=pygame_menu.themes.THEME_BLUE)
+menu.add_button('Play', main)
+menu.add_button('Instructions', instructions)
+menu.add_button('Quit', pygame_menu.events.EXIT)
+
+menu.mainloop(WIN)
