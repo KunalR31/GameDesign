@@ -297,6 +297,13 @@ def instructions():
         screen.blit(img3, (80, 100))
         screen.blit(img4, (80, 140))
         pygame.display.update()
+
+def score():
+    if enemy(ship) -= 1:
+        score += 1
+    else:
+        score += 0
+print(score())
 #This is the menu code. I used pygame menu a pygame module that helps create menus
 menu = pygame_menu.Menu(800,800, 'Space Invaders' ,theme=pygame_menu.themes.THEME_BLUE)
 menu.add_button('Play', main)
