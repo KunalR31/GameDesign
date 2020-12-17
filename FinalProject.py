@@ -8,7 +8,7 @@ import os
 import time
 import random
 from pygame.locals import *
-import pygame_menu
+import pygame_menu #https://pygame-menu.readthedocs.io/en/latest/ . This is the website for the pygame menu
 pygame.font.init()
 pygame.init()
 WIDTH, HEIGHT = 800, 800
@@ -297,14 +297,7 @@ def instructions():
         screen.blit(img3, (80, 100))
         screen.blit(img4, (80, 140))
         pygame.display.update()
-
-def score():
-    if enemy(ship) -= 1:
-        score += 1
-    else:
-        score += 0
-print(score())
-#This is the menu code. I used pygame menu a pygame module that helps create menus
+#This is the menu code. I used pygame menu a pygame module that helps create menus. https://pygame-menu.readthedocs.io/en/latest/
 menu = pygame_menu.Menu(800,800, 'Space Invaders' ,theme=pygame_menu.themes.THEME_BLUE)
 menu.add_button('Play', main)
 menu.add_button('Instructions', instructions)
